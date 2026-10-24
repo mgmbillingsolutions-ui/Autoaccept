@@ -1,0 +1,10 @@
+override fun onAccessibilityEvent(e: AccessibilityEvent) {
+    val root = rootInActiveWindow ?: return
+    val labels = listOf("Accept", "Accept ride", "Confirm")
+    for (label in labels) {
+        root.findAccessibilityNodeInfosByText(label)
+            .firstOrNull { it.isClickable }
+            ?.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+            ?.also { return }
+    }
+}
